@@ -17,7 +17,7 @@ router.get(
   }
 );
 
-app.use("/", router);
+app.use(router);
 
 app.listen(PORT, () => {
   console.log("listening on port 5000");
