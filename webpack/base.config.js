@@ -10,7 +10,7 @@ module.exports = {
   entry: path.resolve("src", "index.ts"),
   externals: [nodeExternals()],
   output: {
-    filename: "server.js",
+    filename: "app.js",
     path: BUILD_ROOT
   },
   module: {

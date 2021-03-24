@@ -1,12 +1,12 @@
 {
   "name": "leisurely_todo_back",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/app.js",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -L",
     "build": "webpack --config ./webpack/prod.config.js",
-    "start": "npm run build && node dist/server.js"
+    "start": "node ."
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
