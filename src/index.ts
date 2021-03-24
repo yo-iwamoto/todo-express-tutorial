@@ -2,7 +2,6 @@ import express from "express";
 import * as bodyParser from "body-parser";
 
 const path = require('path')
-const PORT = process.env.PORT || 5000
 
 const app = express();
 const router = express.Router();
@@ -18,7 +17,7 @@ router.get(
 
 app.use(router);
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("listening on port 5000");
 });
 
