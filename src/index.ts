@@ -11,8 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get(
-  "/",
-  async (req: express.Request, res: express.Response): Promise<void> => {
+  "/api/v1/hello", (req: express.Request, res: express.Response) => {
     res.send("hello world");
   }
 );

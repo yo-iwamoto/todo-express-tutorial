@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "dist/app.js",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "nodemon -L",
     "build": "webpack --config ./webpack/prod.config.js",
