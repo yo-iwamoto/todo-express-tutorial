@@ -6,7 +6,8 @@ import { Payload, UserRecord } from '../../types/index'
 
 const router = Express.Router({ mergeParams: true })
 
-const SECRET_KEY = process.env.SECRET_KEY
+const env = process.env
+const SECRET_KEY = env.SECRET_KEY
 const createUserSql = 'INSERT INTO user VALUE ()'
 const selectLastIdSql = 'SELECT id FROM user ORDER BY id ASC LIMIT 1'
 
