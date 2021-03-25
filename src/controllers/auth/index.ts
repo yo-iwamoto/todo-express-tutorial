@@ -49,4 +49,38 @@ router.post('/sync', (req: Express.Request, res: Express.Response) => {
   })
 })
 
+const findUserByIdSql = (id: number): string => `SELECT * FROM user WHERE id = ${id}`
+
+router.post('/auto_login', (req: Express.Request, res: Express.Response) => {
+  const accessToken = req.header('access-token')
+  const decoded = jwt.verify(accessToken, SECRET_KEY) as Payload
+  const id = decoded.id
+  if (id) {
+    connection.query(findUserByIdSql(id), (err: MysqlError, results: UserRecord) => {
+      if (err) {
+        res.send(err)
+      } else {
+        // このユーザーが所有するtodoItemsを返す
+        res.send(200)
+      }
+    })
+  } else {
+    res.send(500)
+  }
+})
+
+const findUserByUidSql = (uid: number): string => `SELECT * FROM user WHERE uid = ${uid}`
+// ログアウトしてlocalStorageのデータを削除後firebaseからログインしてuidを載せてきた場合
+router.post('/login', (req: Express.Request, res: Express.Response) => {
+  const uid = req.body.uid
+  connection.query(findUserByUidSql(uid), (err: MysqlError, results: UserRecord) => {
+    if (err) {
+      res.send(err)
+    } else {
+      // ユーザーが所有するtodoItemを返す
+      res.sendStatus(200)
+    }
+  })
+})
+
 export default router
