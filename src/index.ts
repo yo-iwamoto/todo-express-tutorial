@@ -2,7 +2,8 @@ import express from "express";
 import * as bodyParser from "body-parser";
 const app = express();
 
-const PORT = process.env.PORT || 5000
+const env = process.env
+const PORT = env.PORT || 5000
 
 const router = express.Router();
 
