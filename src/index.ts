@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get(
-  "/api/v1/hello", (req: express.Request, res: express.Response) => {
+  "/", (req: express.Request, res: express.Response) => {
     res.send("hello world");
   }
 );
@@ -19,7 +19,7 @@ router.get(
 app.use(router);
 
 app.listen(port, () => {
-  console.log("listening on port 5000");
+  console.log(`listening on port ${ port }`);
 });
 
 export default app;
