@@ -2,16 +2,13 @@ import * as Express from 'express'
 import jwt, { JsonWebTokenError } from 'jsonwebtoken'
 import { MysqlError } from 'mysql'
 import { connection } from '../../db/database'
+import { Payload, UserRecord } from '../../types/index'
 
 const router = Express.Router({ mergeParams: true })
 
 const SECRET_KEY = process.env.SECRET_KEY
 const createUserSql = 'INSERT INTO user VALUE ()'
 const selectLastIdSql = 'SELECT id FROM user ORDER BY id ASC LIMIT 1'
-
-interface Payload {
-  id: number;
-}
 
 router.post('/register', (req: Express.Request, res: Express.Response) => {
   // 最後のUserのidに+1したidでUserを作成し，SQLを1文で済ませる．
@@ -20,7 +17,7 @@ router.post('/register', (req: Express.Request, res: Express.Response) => {
       res.send(500)
     }
   })
-  connection.query(selectLastIdSql, (err: MysqlError, results: any) => {
+  connection.query(selectLastIdSql, (err: MysqlError, results: UserRecord[]) => {
     if (err) {
       res.send(500)
     } else {
