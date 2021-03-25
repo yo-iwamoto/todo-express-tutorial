@@ -11,13 +11,24 @@ const env = process.env
 const PORT = env.PORT || 5000
 const router = express.Router();
 
-connection.connect((err: MysqlError) => {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log('DB connected')
-  }
-})
+const handleDisconnect = () => {
+  connection.connect((err: MysqlError) => {
+    if (err) {
+      console.log('error when connecting db')
+      setTimeout(handleDisconnect, 2000)
+    }
+  })
+  
+  connection.on('error', (err: MysqlError) => {
+    console.log('db error', err)
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect()
+    } else {
+      throw err
+    }
+  })
+}
+
 
 app.use((req, res, next) => {
   const allowedOrigins = ["https://leisurely-todo-9ckjnv9h7-you-5805.vercel.app", "https://leisurely-todo.vercel.app", "http://localhost:8080"]
