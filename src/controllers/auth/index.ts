@@ -20,7 +20,7 @@ router.post('/register', (req: Express.Request, res: Express.Response) => {
   })
   connection.query(selectLastIdSql, (err: MysqlError, results: UserRecord[]) => {
     if (err) {
-      res.sendStatus(500)
+      res.sendStatus(500).send(err)
     } else {
       const id: number = results[0].id
       const payload: Payload = { id: id }
@@ -43,7 +43,6 @@ router.post('/sync', (req: Express.Request, res: Express.Response) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      console.log(results)
       res.sendStatus(200)
     }
   })
