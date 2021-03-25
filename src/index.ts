@@ -18,7 +18,7 @@ router.get("/", (req: express.Request, res: express.Response) => {
 app.use(router);
 
 app.listen(PORT, () => {
-  console.log(`listening on port ${ port }`);
+  console.log(`listening on port ${ PORT }`);
 });
 
 export default app;
