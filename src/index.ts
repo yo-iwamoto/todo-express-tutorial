@@ -10,8 +10,7 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-router.get(
-  "/", (req: express.Request, res: express.Response) => {
+router.get("/", (req: express.Request, res: express.Response) => {
     res.send("hello world");
   }
 );
