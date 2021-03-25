@@ -20,7 +20,7 @@ router.post('/register', (req: Express.Request, res: Express.Response) => {
   })
   connection.query(selectLastIdSql, (err: MysqlError, results: UserRecord[]) => {
     if (err) {
-      res.sendStatus(500).send(err)
+      res.status(500).send(err)
     } else {
       const id: number = results[0].id
       const payload: Payload = { id: id }

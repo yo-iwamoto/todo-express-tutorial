@@ -1,7 +1,8 @@
 import express from "express";
 import * as bodyParser from "body-parser";
 import jwt, { JsonWebTokenError } from 'jsonwebtoken'
-// import cors = require('cors')
+import { connection } from './db/database'
+import { MysqlError } from 'mysql'
 
 import auth from './controllers/auth'
 
@@ -9,6 +10,14 @@ const app = express();
 const env = process.env
 const PORT = env.PORT || 5000
 const router = express.Router();
+
+connection.connect((err: MysqlError) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log('DB connected')
+  }
+})
 
 app.use((req, res, next) => {
   const allowedOrigins = ["https://leisurely-todo-9ckjnv9h7-you-5805.vercel.app", "https://leisurely-todo.vercel.app", "http://localhost:8080"]
