@@ -11,11 +11,11 @@ const PORT = env.PORT || 5000
 const router = express.Router();
 
 app.use((req, res, next) => {
-  const allowedOrigins = ["https://leisurely-todo-9ckjnv9h7-you-5805.vercel.app", "https://leisurely-todo.vercel.app", "http://localhost:8080"]
-  const origin = req.headers.origin
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-  }
+  // const allowedOrigins = ["https://leisurely-todo-9ckjnv9h7-you-5805.vercel.app", "https://leisurely-todo.vercel.app", "http://localhost:8080"]
+  // const origin = req.headers.origin
+  // if (allowedOrigins.includes(origin)) {
+  //   res.setHeader('Access-Control-Allow-Origin', origin)
+  // }
   res.header('Access-Control-Allow-Origin', "*")
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Access-Token, Accept")

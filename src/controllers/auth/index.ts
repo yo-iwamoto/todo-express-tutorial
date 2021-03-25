@@ -15,18 +15,18 @@ router.post('/register', (req: Express.Request, res: Express.Response) => {
   // 最後のUserのidに+1したidでUserを作成し，SQLを1文で済ませる．
   connection.query(createUserSql, (err: MysqlError) => {
     if (err) {
-      res.send(500)
+      res.status(500).send(err)
     }
   })
   connection.query(selectLastIdSql, (err: MysqlError, results: UserRecord[]) => {
     if (err) {
-      res.send(500)
+      res.sendStatus(500)
     } else {
       const id: number = results[0].id
       const payload: Payload = { id: id }
       const accessToken = jwt.sign(payload, SECRET_KEY)
       res.setHeader('Access-Token', accessToken)
-      res.send(200)
+      res.sendStatus(200)
     }
   })
 })
@@ -41,10 +41,10 @@ router.post('/sync', (req: Express.Request, res: Express.Response) => {
   const uid = req.body.uid
   connection.query(updateUserByIdSql(id, uid), (err: MysqlError, results: any) => {
     if (err) {
-      res.send(500)
+      res.status(500).send(err)
     } else {
       console.log(results)
-      res.send(200)
+      res.sendStatus(200)
     }
   })
 })
@@ -58,14 +58,14 @@ router.post('/auto_login', (req: Express.Request, res: Express.Response) => {
   if (id) {
     connection.query(findUserByIdSql(id), (err: MysqlError, results: UserRecord) => {
       if (err) {
-        res.send(err)
+        res.status(500).send(err)
       } else {
         // このユーザーが所有するtodoItemsを返す
-        res.send(200)
+        res.sendStatus(200)
       }
     })
   } else {
-    res.send(500)
+    res.sendStatus(500)
   }
 })
 
@@ -75,7 +75,7 @@ router.post('/login', (req: Express.Request, res: Express.Response) => {
   const uid = req.body.uid
   connection.query(findUserByUidSql(uid), (err: MysqlError, results: UserRecord) => {
     if (err) {
-      res.send(err)
+      res.status(500).send(err)
     } else {
       // ユーザーが所有するtodoItemを返す
       res.sendStatus(200)
