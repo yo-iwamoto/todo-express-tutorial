@@ -1,7 +1,7 @@
 import express from "express";
 import * as bodyParser from "body-parser";
 import jwt, { JsonWebTokenError } from 'jsonwebtoken'
-import cors from 'cors'
+import cors = require('cors')
 
 import auth from './controllers/auth'
 
