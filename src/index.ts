@@ -1,13 +1,9 @@
 import express from "express";
 import * as bodyParser from "body-parser";
-
-const path = require('path')
-let PORT = process.env.PORT
-if (!PORT) {
-  PORT = '5000'
-}
-
 const app = express();
+
+const PORT = process.env.PORT || 5000
+
 const router = express.Router();
 
 app.use(bodyParser.json());
