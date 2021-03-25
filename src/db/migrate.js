@@ -10,7 +10,8 @@ const connection = mysql.createConnection({
   database: env.DB_DATABASE
 })
 
-connection.query('CREATE TABLE user (id int auto_increment primary key not null, uid varchar(200) not null, created_at datetime default current_timestamp, updated_at timestamp default current_timestamp on update current_timestamp)', (err, results) => {
+connection.query('CREATE TABLE user (id int auto_increment primary key not null, uid varchar(200) not null, created_at datetime default current_timestamp, updated_at timestamp default current_timestamp on update current_timestamp)',
+  (err, results) => {
   console.log(err)
   console.log(results)
 })
