@@ -1,7 +1,8 @@
 import express from "express";
 import * as bodyParser from "body-parser";
+import { connection } from './database'
 
-import auth from './routes/auth'
+import auth from './controllers/auth'
 
 const app = express();
 const env = process.env
