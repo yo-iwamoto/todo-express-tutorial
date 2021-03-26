@@ -8,3 +8,9 @@ export interface UserRecord {
   created_at: object;
   updated_at: object;
 }
+
+export interface TaskRecord {
+  id: number;
+  name: string;
+  status: number;
+}

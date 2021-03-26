@@ -15,3 +15,5 @@ connection.query('CREATE TABLE user (id int auto_increment primary key not null,
   console.log(err)
   console.log(results)
 })
+
+connection.query('CREATE TABLE task (id int auto_increment primary key not null, user_id int, name varchar(200) not null, status int default 0 not null, constraint fk_user_id foreign key (user_id) references user (id) on delete restrict on update restrict)')

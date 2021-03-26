@@ -5,6 +5,7 @@ import { connection } from './db/database'
 import { MysqlError } from 'mysql'
 
 import auth from './controllers/auth'
+import tasks from './controllers/tasks'
 
 const app = express();
 const env = process.env
@@ -49,6 +50,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/auth', auth)
+app.use('/api/v1/tasks', tasks)
 
 app.listen(PORT, () => {
   console.log(`listening on port ${ PORT }`);
