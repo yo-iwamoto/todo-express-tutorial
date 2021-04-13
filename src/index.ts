@@ -32,7 +32,7 @@ const handleDisconnect = () => {
 
 
 app.use((req, res, next) => {
-  const allowedOrigins = ["https://leisurely-todo-9ckjnv9h7-you-5805.vercel.app", "https://leisurely-todo.vercel.app", "http://localhost:8080"]
+  const allowedOrigins = ["https://leisurely-todo-9ckjnv9h7-you-5805.vercel.app", "https://leisurely-todo.vercel.app", "http://127.0.0.1:8080"]
   const origin = req.headers.origin
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin)
