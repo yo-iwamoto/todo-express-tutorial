@@ -1,5 +1,5 @@
 import * as Express from 'express'
-import jwt, { JsonWebTokenError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { MysqlError } from 'mysql'
 import { connection } from '../../db/database'
 import { Payload, UserRecord } from '../../types/index'
@@ -71,17 +71,18 @@ router.post('/auto_login', (req: Express.Request, res: Express.Response) => {
 })
 
 // uidからUserを取得
-const findUserByUidSql = (uid: String): string => `SELECT * FROM user WHERE uid = "${uid}" LIMIT 1`
+const findUserByUidSql = (uid: string): string => `SELECT * FROM user WHERE uid = "${uid}" LIMIT 1`
 // firebase uidからUserを取得
 router.post('/login', (req: Express.Request, res: Express.Response) => {
-  console.log(req.body)
   const uid = req.body.uid as string
-  connection.query(findUserByUidSql(uid), (err: MysqlError, results: UserRecord) => {
+  connection.query(findUserByUidSql(uid), (err: MysqlError, results: UserRecord[]) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      const id = results.id
+      const id = results[0].id
       const payload: Payload = { id: id }
+      console.log(payload)
+      console.log(SECRET_KEY)
       const accessToken = jwt.sign(payload, SECRET_KEY)
       res.setHeader('Access-Token', accessToken)
       res.sendStatus(200)

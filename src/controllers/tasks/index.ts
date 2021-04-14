@@ -49,7 +49,7 @@ router.get('/', (req: Express.Request, res: Express.Response) => {
 })
 
 // update
-router.delete('/:id', (req: Express.Request, res: Express.Response) => {
+router.patch('/:id', (req: Express.Request, res: Express.Response) => {
   const accessToken = req.header('access-token')
   if (!accessToken) {
     res.status(500).send('unauthorized')
