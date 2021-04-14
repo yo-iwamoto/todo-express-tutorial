@@ -20,7 +20,7 @@ router.post('/', (req: Express.Request, res: Express.Response) => {
   const decoded = jwt.verify(accessToken, SECRET_KEY) as Payload
   const user_id = decoded.id
   // user_idとnameを指定してtaskを作成
-  connection.query(`INSERT INTO task (user_id, name) VALUE (${user_id}, "${params.name}")`, (err: MysqlError) => {
+  connection.query(`INSERT INTO tasks (user_id, name) VALUE (${user_id}, "${params.name}")`, (err: MysqlError) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -35,7 +35,7 @@ router.get('/', (req: Express.Request, res: Express.Response) => {
   const decoded = jwt.verify(accessToken, SECRET_KEY) as Payload
   const user_id = decoded.id
   // user_idでtaskをINNER JOIN，全件取得
-  connection.query(`SELECT task.id, name, status FROM task INNER JOIN user ON task.user_id = user.id WHERE user.id = ${user_id}`, (err: MysqlError, results: TaskRecord[]) => {
+  connection.query(`SELECT tasks.id, name, status FROM tasks INNER JOIN user ON tasks.user_id = user.id WHERE user.id = ${user_id}`, (err: MysqlError, results: TaskRecord[]) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -59,12 +59,12 @@ router.patch('/:id', (req: Express.Request, res: Express.Response) => {
     const decoded = jwt.verify(accessToken, SECRET_KEY) as Payload
     const user_id = decoded.id
     // idでtaskを特定，statusを更新
-    connection.query(`UPDATE task SET status = ${status} WHERE id = ${id}`, (err: MysqlError, results: TaskRecord[]) => {
+    connection.query(`UPDATE tasks SET status = ${status} WHERE id = ${id}`, (err: MysqlError, results: TaskRecord[]) => {
       if (err) {
         res.status(500).send(err)
       } else {
         // user_idからtaskをINNER JOIN，全件取得
-        connection.query(`SELECT task.id, name, status FROM task INNER JOIN user ON task.user_id = user.id WHERE user.id = ${user_id}`)
+        connection.query(`SELECT tasks.id, name, status FROM tasks INNER JOIN user ON tasks.user_id = user.id WHERE user.id = ${user_id}`)
         res.sendStatus(200)
       }
     })
@@ -78,7 +78,7 @@ router.delete('/:id', (req: Express.Request, res: Express.Response) => {
   } else {
     const id = Number(req.params.id)
     // idでtaskを特定，削除
-    connection.query(`DELETE FROM task WHERE id = ${id}`, (err: MysqlError, results: TaskRecord[]) => {
+    connection.query(`DELETE FROM tasks WHERE id = ${id}`, (err: MysqlError, results: TaskRecord[]) => {
       if (err) {
         res.status(500).send(err)
       } else {
